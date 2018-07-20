@@ -64,6 +64,10 @@ function toggleCheckedForListItem(itemIndex) {
   STORE[itemIndex].checked = !STORE[itemIndex].checked;
 }
 
+function deleteItemClicked(itemIndex) {
+  console.log("Deleting item from index" + itemIndex);
+  STORE.splice(itemIndex,1);
+}
 
 function getItemIndexFromElement(item) {
   const itemIndexString = $(item)
@@ -82,10 +86,16 @@ function handleItemCheckClicked() {
 }
 
 
-function handleDeleteItemClicked() {
+function handleDeleteItemClicked() {function handleDeleteItemClicked() {
   // this function will be responsible for when users want to delete a shopping list
   // item
-  console.log('`handleDeleteItemClicked` ran')
+  $('.js-shopping-list').on('click', `.js-item-delete`, event => {
+    console.log('`handDeleteItemClicked` ran')
+    const itemIndex = getItemIndexFromElement(event.currentTarget);
+    console.log(itemIndex);
+    deleteItemClicked(itemIndex);
+    renderShoppingList();
+  });
 }
 
 // this function will be our callback when the page loads. it's responsible for
