@@ -1,10 +1,10 @@
 'use strict';
 
 const STORE = [
-  {name: 'apples', checked: false},
-  {name: 'oranges', checked: false},
-  {name: 'milk', checked: true},
-  {name: 'bread', checked: false}
+    {name: 'apples', checked: false},
+    {name: 'oranges', checked: false},
+    {name: 'milk', checked: true},
+    {name: 'bread', checked: false}
 ];
 
 
@@ -36,10 +36,12 @@ function generateShoppingItemsString(shoppingList) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
 
+  const shoppingListItemsString = generateShoppingItemsString(STORE);
+  
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
+ 
 }
 
 
@@ -86,7 +88,7 @@ function handleItemCheckClicked() {
 }
 
 
-function handleDeleteItemClicked() {function handleDeleteItemClicked() {
+function handleDeleteItemClicked() {
   // this function will be responsible for when users want to delete a shopping list
   // item
   $('.js-shopping-list').on('click', '.js-item-delete', event => {
@@ -97,8 +99,32 @@ function handleDeleteItemClicked() {function handleDeleteItemClicked() {
     renderShoppingList();
   });
 }
+let check = false;
+
+function checkBoxToggle() {
+  // Shows unchecked items
+  $('.js-shopping-list-check').change(function() {
+    // Should show unchecked items when checkbox is clicked
+    // STORE.checked = !STORE.checked;
+    if(!check) { 
+    $('.shopping-item__checked').closest('li').hide();
+    check = true;
+    } else {
+      $('.shopping-item__checked').closest('li').show();
+      check = false;
+    }
+  });
 }
 
+// function search() {
+//   // search for a list item
+//   $('.js-shopping-list-search').
+// }
+
+
+// function edit() {
+//   // edit name of list item
+// }
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
 // that handle new item submission and user clicks on the "check" and "delete" buttons
@@ -108,7 +134,8 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
-  deleteItemClicked();
+  checkBoxToggle();
+  // search();
 }
 
 // when the page loads, call `handleShoppingList`
