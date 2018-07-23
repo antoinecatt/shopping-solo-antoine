@@ -61,6 +61,27 @@ function handleNewItemSubmit() {
   });
 }
 
+function getSearchItem(item) {
+  console.log(`Searching ${item}`);
+  // get data from array
+  STORE.find(item => item.name === item);
+   
+}
+
+function handleSearchItem() {
+  $('#js-shopping-list-search').submit(function(e) {
+    e.preventDefault();
+    // store info in a variable and spit return the values of searched item
+    console.log('`handleSearchItem` ran');
+    const searchedItem = $('.js-shopping-list-search').val(); 
+    // change the store
+    getSearchItem(searchedItem);
+    // render the whole page;
+    renderShoppingList();
+  })
+}
+
+
 function toggleCheckedForListItem(itemIndex) {
   console.log('Toggling checked property for item at index ' + itemIndex);
   STORE[itemIndex].checked = !STORE[itemIndex].checked;
@@ -116,15 +137,14 @@ function checkBoxToggle() {
   });
 }
 
-// function search() {
-//   // search for a list item
-//   $('.js-shopping-list-search').
-// }
 
 
 // function edit() {
 //   // edit name of list item
 // }
+
+
+
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
 // that handle new item submission and user clicks on the "check" and "delete" buttons
@@ -135,7 +155,8 @@ function handleShoppingList() {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   checkBoxToggle();
-  // search();
+  handleSearchItem();
+
 }
 
 // when the page loads, call `handleShoppingList`
